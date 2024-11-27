@@ -13,21 +13,12 @@ defined('ABSPATH') || exit;
         </div>
         <div class="row">
             <div class="col-md-8">
-                &copy; <?= date('Y') ?> Aberforth Parners LLP. Authorised and regulated by the <a href="https://www.fca.org.uk/" target="_blank">Financial Conduct Authority</a> in the United Kingdom.
+                &copy; <?= date('Y') ?> Authorised and regulated by the <a href="https://www.fca.org.uk/" target="_blank">Financial Conduct Authority</a> in the United Kingdom.
             </div>
             <div class="col-md-4 text-end">
-                <img src="<?= get_stylesheet_directory_uri() ?>/img/scale.svg" alt="">
             </div>
         </div>
 </footer>
-<?php
-/*
-<pre>
-<?= get_option('ascot_pricing_data') ?>
-<?= get_option('agvit_pricing_data') ?>
-</pre>
-*/
-?>
 <?php wp_footer(); ?>
 </body>
 

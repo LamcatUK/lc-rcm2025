@@ -35,4 +35,11 @@ $col-light: #F2F2F2;
     --h-top: 90px;
     --h-top-desktop: 125px;
 
+
+    
+}
+
+#complianceModal {
+    --bs-modal-width: min(800px,90vw);
+    --bs-modal-margin: 6rem;
 }

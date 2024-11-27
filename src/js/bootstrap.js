@@ -25,3 +25,11 @@ export {
 	Toast,
 	Tooltip
 }
+
+window.bootstrap = {
+	Modal,
+    Alert,
+    Dropdown,
+    Collapse,
+    Offcanvas,
+};

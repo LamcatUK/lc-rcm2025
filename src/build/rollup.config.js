@@ -22,9 +22,12 @@ let fileDest = 'child-theme';
 let globals = {
 	jquery: 'jQuery', // Ensure we use jQuery which is always available even in noConflict mode
 	'@popperjs/core': 'Popper',
+	bootstrap: 'bootstrap',
 };
 
-const external = [ 'jquery' ];
+// const external = [ 'jquery' ];
+const external = ['jquery', 'bootstrap', '@popperjs/core'];
+
 
 const plugins = [
 	babel( {
