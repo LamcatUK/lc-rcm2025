@@ -212,3 +212,53 @@ function add_custom_menu_item($items, $args)
     return $items;
 }
 add_filter('wp_nav_menu_items', 'add_custom_menu_item', 10, 2);
+
+
+// check block region
+
+function is_block_region_applicable()
+{
+
+    $acf_field = 'region';
+
+    // Start the session if not already started
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Get the region stored in the session variable
+    $session_region = isset($_SESSION['region']) ? $_SESSION['region'] : null;
+
+    // Bail early if no session region is set
+    if (!$session_region) {
+        return false;
+    }
+
+    // Get the selected regions from the ACF field
+    $block_regions = get_field($acf_field);
+
+    // Bail early if no regions are selected for the block
+    if (empty($block_regions)) {
+        return false;
+    }
+
+    // Handle Term Objects or IDs
+    $block_slugs = [];
+    if (is_object($block_regions[0]) || is_array($block_regions[0])) {
+        // Term Objects: Extract the slug
+        foreach ($block_regions as $term) {
+            $block_slugs[] = is_object($term) ? $term->slug : $term['slug'];
+        }
+    } elseif (is_numeric($block_regions[0])) {
+        // Term IDs: Fetch term objects to get slugs
+        foreach ($block_regions as $term_id) {
+            $term = get_term($term_id);
+            if ($term) {
+                $block_slugs[] = $term->slug;
+            }
+        }
+    }
+
+    // Check if the session region matches any of the block regions
+    return in_array($session_region, $block_slugs, true);
+}

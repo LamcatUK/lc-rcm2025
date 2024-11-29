@@ -2,15 +2,15 @@
 function acf_blocks()
 {
     if (function_exists('acf_register_block_type')) {
-        // acf_register_block_type(array(
-        //     'name'                => 'cb_home_hero',
-        //     'title'                => __('CB Home Hero'),
-        //     'category'            => 'layout',
-        //     'icon'                => 'cover-image',
-        //     'render_template'    => 'page-templates/blocks/cb_home_hero.php',
-        //     'mode'    => 'edit',
-        //     'supports' => array('mode' => false),
-        // ));
+        acf_register_block_type(array(
+            'name'                => 'cb_title_text',
+            'title'                => __('CB Title/Text'),
+            'category'            => 'layout',
+            'icon'                => 'cover-image',
+            'render_template'    => 'page-templates/blocks/cb_title_text.php',
+            'mode'    => 'edit',
+            'supports' => array('mode' => false),
+        ));
     }
 }
 add_action('acf/init', 'acf_blocks');
