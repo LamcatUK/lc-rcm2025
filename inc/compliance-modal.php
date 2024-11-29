@@ -7,8 +7,29 @@ add_action('init', function () {
 });
 
 add_action('wp_footer', function () {
+    echo '<div class="container-xl"><hr><div class="fw-bold mb-2">DEBUG INFO</div>';
     echo '<pre>SESSION: ' . print_r($_SESSION, true) . '</pre>';
+    echo '<button id="clear-session-button" class="btn btn-secondary">Clear Session & Reload</button>';
+    echo '</div>';
 });
+
+// DEBUG function to clear session
+function enqueue_clear_session_script()
+{
+    wp_enqueue_script(
+        'clear-session-script',
+        get_stylesheet_directory_uri() . '/js/clear-session.js',
+        array('child-understrap-scripts'),
+        '1.0',
+        true
+    );
+
+    // Localize AJAX URL
+    wp_localize_script('clear-session-script', 'ajax_object', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+    ));
+}
+add_action('wp_enqueue_scripts', 'enqueue_clear_session_script');
 
 // Function to enqueue modal scripts and styles
 function enqueue_compliance_modal_scripts()
@@ -20,9 +41,9 @@ function enqueue_compliance_modal_scripts()
         // Enqueue custom modal JavaScript
         wp_enqueue_script(
             'compliance-modal',
-            get_stylesheet_directory_uri() . '/js/compliance-modal.js', // Path to your custom script
-            array('child-understrap-scripts'), // 'understrap-scripts' is the handle for child-theme.js
-            time(), // Unique version to bypass cache
+            get_stylesheet_directory_uri() . '/js/compliance-modal.js',
+            array('child-understrap-scripts'),
+            '1.0',
             true
         );
     }

@@ -262,3 +262,19 @@ function is_block_region_applicable()
     // Check if the session region matches any of the block regions
     return in_array($session_region, $block_slugs, true);
 }
+
+// Handle the AJAX request to clear the session
+function clear_session_ajax_handler()
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Clear the session variable
+    unset($_SESSION['region']);
+
+    // Respond with success
+    wp_send_json_success('Session cleared.');
+}
+add_action('wp_ajax_clear_session', 'clear_session_ajax_handler');
+add_action('wp_ajax_nopriv_clear_session', 'clear_session_ajax_handler');
