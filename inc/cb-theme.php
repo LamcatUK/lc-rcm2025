@@ -263,6 +263,64 @@ function is_block_region_applicable()
     return in_array($session_region, $block_slugs, true);
 }
 
+function check_page_permissions() {
+    // Ensure the session is started
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // retrieve region from the session
+    $userRegion = $_SESSION['region'] ?? null;
+    
+    // Bail early if userRegion is not set
+    if (!$userRegion) {
+        return false;
+    }
+
+    // get list of allowed region IDs
+    $areas = get_field('region',get_the_ID());
+
+    // Bail early if no regions are assigned to the page/post
+    if (empty($areas)) {
+        return false;
+    }
+
+    // Normalise the region data to ensure we always work with slugs
+    $allowedRegions = [];
+    foreach ($areas as $area) {
+        if (is_object($area) && isset($area->slug)) {
+            // Term object with a slug property
+            $allowedRegions[] = $area->slug;
+        } elseif (is_array($area) && isset($area['slug'])) {
+            // Associative array with a slug key
+            $allowedRegions[] = $area['slug'];
+        } elseif (is_numeric($area)) {
+            // Numeric term ID; retrieve the term to get its slug
+            $term = get_term($area);
+            if ($term && !is_wp_error($term)) {
+                $allowedRegions[] = $term->slug;
+            }
+        }
+    }
+
+    // Bail early if no valid regions were found
+    if (empty($allowedRegions)) {
+        return false;
+    }
+
+    // Check if the user's region matches any of the allowed regions
+    return in_array($userRegion, $allowedRegions, true);
+
+    foreach ($areas as $area) {
+        if ($area->slug === $userRegion) {
+            return true;
+        }
+    }
+
+    return false;
+
+}
+
 // Handle the AJAX request to clear the session
 function clear_session_ajax_handler()
 {
@@ -278,3 +336,5 @@ function clear_session_ajax_handler()
 }
 add_action('wp_ajax_clear_session', 'clear_session_ajax_handler');
 add_action('wp_ajax_nopriv_clear_session', 'clear_session_ajax_handler');
+
+

@@ -2,6 +2,13 @@
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 get_header();
+
+if (check_page_permissions() == false) {
+    echo '<main id="main" class="pt-5 mt-5">';
+    echo "<div class='container-xl'>NOTHING TO SEE HERE. MOVE ALONG.</div>";
+    echo '</main>';
+    get_footer();
+}
 ?>
 <main id="main" class="pt-5 mt-5">
     <?php
