@@ -256,11 +256,10 @@ function is_block_region_applicable()
             }
         }
     }
-
     
-    echo '<br><hr>BLOCK REGIONS: ' . print_r($block_regions, 1) . '<br>';
-    echo 'BLOCK SLUGS: ' . print_r($block_slugs, 1) . '<br>';
-    echo 'SESSION REGION: ' . $session_region;
+    // echo '<br><hr>BLOCK REGIONS: ' . print_r($block_regions, 1) . '<br>';
+    // echo 'BLOCK SLUGS: ' . print_r($block_slugs, 1) . '<br>';
+    // echo 'SESSION REGION: ' . $session_region;
 
     // Check if the session region matches any of the block regions
     return in_array($session_region, $block_slugs, true);
@@ -275,6 +274,7 @@ function check_page_permissions() {
     // retrieve region from the session
     $userRegion = $_SESSION['region'] ?? null;
 
+    
     // Bail early if userRegion is not set
     if (!$userRegion) {
         return false;
