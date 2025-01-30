@@ -137,6 +137,10 @@ function cb_gutenberg_admin_styles()
             .block-editor-page #wpwrap {
                 overflow-y: auto !important;
             }
+
+            .acf-checkbox-list {
+                columns: 3;
+            }
         </style>
     ';
 }
