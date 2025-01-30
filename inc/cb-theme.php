@@ -271,7 +271,9 @@ function check_page_permissions() {
 
     // retrieve region from the session
     $userRegion = $_SESSION['region'] ?? null;
-    
+
+    var_dump($_SESSION);
+
     // Bail early if userRegion is not set
     if (!$userRegion) {
         return false;
