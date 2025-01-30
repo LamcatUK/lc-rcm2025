@@ -274,7 +274,6 @@ function check_page_permissions() {
 
     // Bail early if userRegion is not set
     if (!$userRegion) {
-        echo 'NO REGION';
         return false;
     }
 
@@ -283,7 +282,6 @@ function check_page_permissions() {
 
     // Bail early if no regions are assigned to the page/post
     if (empty($areas)) {
-        echo "NO AREAS";
         return false;
     }
 
