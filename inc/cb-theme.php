@@ -235,7 +235,7 @@ function is_block_region_applicable()
     // Get the selected regions from the ACF field
     $block_regions = get_field('region');
 
-    echo 'BLOCK REGIONS: ' . var_dump($block_regions, 1) . '<br>';
+    echo 'BLOCK REGIONS: ' . print_r($block_regions, 1) . '<br>';
     echo 'SESSION REGION: ' . $session_region;
 
 
