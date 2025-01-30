@@ -257,6 +257,11 @@ function is_block_region_applicable()
         }
     }
 
+    
+    echo '<br><hr>BLOCK REGIONS: ' . print_r($block_regions, 1) . '<br>';
+    echo 'BLOCK SLUGS: ' . print_r($block_slugs, 1) . '<br>';
+    echo 'SESSION REGION: ' . $session_region;
+
     // Check if the session region matches any of the block regions
     return in_array($session_region, $block_slugs, true);
 }
