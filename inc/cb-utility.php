@@ -138,8 +138,15 @@ function cb_gutenberg_admin_styles()
                 overflow-y: auto !important;
             }
 
-            .acf-checkbox-list {
-                columns: 3;
+            @media (min-width:992px) {
+                .acf-checkbox-list {
+                    columns: 3;
+                }
+            }
+            @media (min-width:1200px) {
+                .acf-checkbox-list {
+                    columns: 6;
+                }
             }
         </style>
     ';
