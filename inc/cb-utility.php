@@ -145,7 +145,7 @@ function cb_gutenberg_admin_styles()
             }
             @media (min-width:1200px) {
                 .acf-checkbox-list {
-                    columns: 6;
+                    columns: 4;
                 }
             }
         </style>
