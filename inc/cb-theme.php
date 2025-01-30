@@ -235,10 +235,6 @@ function is_block_region_applicable()
     // Get the selected regions from the ACF field
     $block_regions = get_field('region');
 
-    echo 'BLOCK REGIONS: ' . print_r($block_regions, 1) . '<br>';
-    echo 'SESSION REGION: ' . $session_region;
-
-
     // Bail early if no regions are selected for the block
     if (empty($block_regions)) {
         return false;
@@ -260,6 +256,11 @@ function is_block_region_applicable()
             }
         }
     }
+
+    
+    echo '<br><hr>BLOCK REGIONS: ' . print_r($block_regions, 1) . '<br>';
+    echo 'BLOCK SLUGS: ' . print_r($block_slugs, 1) . '<br>';
+    echo 'SESSION REGION: ' . $session_region;
 
     // Check if the session region matches any of the block regions
     return in_array($session_region, $block_slugs, true);
