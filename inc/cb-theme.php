@@ -272,12 +272,9 @@ function check_page_permissions() {
     // retrieve region from the session
     $userRegion = $_SESSION['region'] ?? null;
 
-    echo '<div style="padding-block:4rem"></div>';
-    echo 'SESSION: ';
-    var_dump($_SESSION);
-
     // Bail early if userRegion is not set
     if (!$userRegion) {
+        echo 'NO REGION';
         return false;
     }
 
@@ -286,6 +283,7 @@ function check_page_permissions() {
 
     // Bail early if no regions are assigned to the page/post
     if (empty($areas)) {
+        echo "NO AREAS";
         return false;
     }
 
