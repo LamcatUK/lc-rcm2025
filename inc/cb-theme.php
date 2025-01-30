@@ -219,8 +219,6 @@ add_filter('wp_nav_menu_items', 'add_custom_menu_item', 10, 2);
 function is_block_region_applicable()
 {
 
-    $acf_field = 'region';
-
     // Start the session if not already started
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -229,16 +227,17 @@ function is_block_region_applicable()
     // Get the region stored in the session variable
     $session_region = isset($_SESSION['region']) ? $_SESSION['region'] : null;
 
-    echo 'BLOCK REGION: ' . $acf_field . '<br>';
-    echo 'SESSION REGION: ' . $session_region;
-
     // Bail early if no session region is set
     if (!$session_region) {
         return false;
     }
 
     // Get the selected regions from the ACF field
-    $block_regions = get_field($acf_field);
+    $block_regions = get_field('region');
+
+    echo 'BLOCK REGIONS: ' . var_dump($block_regions, 1) . '<br>';
+    echo 'SESSION REGION: ' . $session_region;
+
 
     // Bail early if no regions are selected for the block
     if (empty($block_regions)) {
