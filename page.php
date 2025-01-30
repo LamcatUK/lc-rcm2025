@@ -8,6 +8,7 @@ if (check_page_permissions() == false) {
     echo "<div class='container-xl'>NOTHING TO SEE HERE. MOVE ALONG.</div>";
     echo '</main>';
     get_footer();
+    exit;
 }
 ?>
 <main id="main" class="pt-5 mt-5">
