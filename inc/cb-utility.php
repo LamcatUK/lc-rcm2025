@@ -139,12 +139,12 @@ function cb_gutenberg_admin_styles()
             }
 
             @media (min-width:992px) {
-                .acf-checkbox-list {
+                .acf-block-component .acf-checkbox-list {
                     columns: 3;
                 }
             }
             @media (min-width:1200px) {
-                .acf-checkbox-list {
+                .acf-block-component .acf-checkbox-list {
                     columns: 4;
                 }
             }
