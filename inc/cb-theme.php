@@ -229,6 +229,9 @@ function is_block_region_applicable()
     // Get the region stored in the session variable
     $session_region = isset($_SESSION['region']) ? $_SESSION['region'] : null;
 
+    echo 'BLOCK REGION: ' . $acf_field . '<br>';
+    echo 'SESSION REGION: ' . $session_region;
+
     // Bail early if no session region is set
     if (!$session_region) {
         return false;
