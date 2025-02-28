@@ -15,10 +15,12 @@ function acf_blocks()
 }
 add_action('acf/init', 'acf_blocks');
 
+
 // Gutenburg core modifications
 add_filter('register_block_type_args', 'core_image_block_type_args', 10, 3);
 function core_image_block_type_args($args, $name)
 {
+
     if ($name == 'core/paragraph') {
         $args['render_callback'] = 'modify_core_add_container';
     }
@@ -28,14 +30,28 @@ function core_image_block_type_args($args, $name)
     if ($name == 'core/list') {
         $args['render_callback'] = 'modify_core_add_container';
     }
-    // if ($name == 'yoast-seo/breadcrumbs') {
-    //     $args['render_callback'] = 'modify_core_add_container';
-    // }
+
     return $args;
+}
+
+// Helper function to detect if footer.php is being rendered
+function is_footer_rendering()
+{
+    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+    foreach ($backtrace as $trace) {
+        if (isset($trace['file']) && basename($trace['file']) === 'footer.php') {
+            return true;
+        }
+    }
+    return false;
 }
 
 function modify_core_add_container($attributes, $content)
 {
+    if (is_footer_rendering()) {
+        return $content;
+    }
+
     ob_start();
     // $class = $block['className'];
 ?>

@@ -1,0 +1,59 @@
+.footer {
+  background-color: var(--col-blue-400);
+  color: white;
+
+  font-size: var(--button-text);
+
+  &__menu {
+    ul {
+      list-style: none;
+      padding-inline-start: 0;
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__addresses {
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+    &--label {
+      writing-mode: vertical-rl; /* Rotates text 90° clockwise */
+      transform: rotate(180deg); /* Flips to be 90° counterclockwise */
+      text-transform: uppercase;
+      color: var(--col-blue-100);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      height: auto; /* Let content decide height */
+      min-height: unset; /* Remove forced height */
+      white-space: nowrap; /* Keep text in one line */
+      align-self: flex-start;
+    }
+  }
+
+  &__office {
+    flex: 1; // Ensure all office blocks are equal width
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-left: 1px solid var(--col-blue-100);
+    padding-inline: 1rem;
+  }
+
+  &__title,
+  &__phone {
+    font-size: var(--font-large-text);
+  }
+  &__address {
+    line-height: 2;
+    padding-bottom: 0.5rem;
+  }
+
+  .colophon {
+    font-size: var(--font-mouse-text);
+  }
+}

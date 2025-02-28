@@ -83,7 +83,6 @@ function widgets_init()
 }
 add_action('widgets_init', 'widgets_init', 11);
 
-
 remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
 remove_action('wp_body_open', 'wp_global_styles_render_svg_filters');
 
@@ -256,7 +255,7 @@ function is_block_region_applicable()
             }
         }
     }
-    
+
     // echo '<br><hr>BLOCK REGIONS: ' . print_r($block_regions, 1) . '<br>';
     // echo 'BLOCK SLUGS: ' . print_r($block_slugs, 1) . '<br>';
     // echo 'SESSION REGION: ' . $session_region;
@@ -265,7 +264,8 @@ function is_block_region_applicable()
     return in_array($session_region, $block_slugs, true);
 }
 
-function check_page_permissions() {
+function check_page_permissions()
+{
     // Ensure the session is started
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -274,14 +274,14 @@ function check_page_permissions() {
     // retrieve region from the session
     $userRegion = $_SESSION['region'] ?? null;
 
-    
+
     // Bail early if userRegion is not set
     if (!$userRegion) {
         return false;
     }
 
     // get list of allowed region IDs
-    $areas = get_field('region',get_the_ID());
+    $areas = get_field('region', get_the_ID());
 
     // Bail early if no regions are assigned to the page/post
     if (empty($areas)) {
@@ -311,6 +311,11 @@ function check_page_permissions() {
         return false;
     }
 
+    // If 'All Regions' is one of the assigned regions, grant access
+    if (in_array('all-regions', $allowedRegions, true)) {
+        return true;
+    }
+
     // Check if the user's region matches any of the allowed regions
     return in_array($userRegion, $allowedRegions, true);
 
@@ -321,7 +326,6 @@ function check_page_permissions() {
     }
 
     return false;
-
 }
 
 // Handle the AJAX request to clear the session
@@ -341,3 +345,14 @@ add_action('wp_ajax_clear_session', 'clear_session_ajax_handler');
 add_action('wp_ajax_nopriv_clear_session', 'clear_session_ajax_handler');
 
 
+// set default region if none is selected
+add_filter('acf/load_value/name=region', function ($value, $post_id, $field) {
+    // If no value is set, return the default term
+    if (empty($value)) {
+        $default_term = get_term_by('slug', 'all-regions', 'region'); // Change 'region' to your taxonomy name
+
+        return $default_term ? [$default_term->term_id] : []; // Ensure it returns an array if using multi-select
+    }
+
+    return $value;
+}, 10, 3);
