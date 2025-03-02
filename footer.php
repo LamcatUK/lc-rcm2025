@@ -26,7 +26,7 @@ defined('ABSPATH') || exit;
                 &copy; <?= date('Y') ?> RCM Carpentry (Horsham) Limited. Registered in England and Wales, Company number 16072907.
             </div>
             <div>
-                lc
+                Site by <a href="https://www.lamcat.co.uk/" rel="nofollow noopener" target="_blank" class="lc" title="Site by Lamcat">Lamcat</a>
             </div>
         </div>
 </footer>
