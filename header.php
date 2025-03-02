@@ -5,7 +5,7 @@
  *
  * Displays all of the <head> section and everything up till <div id="content">
  *
- * @package cb-arcus2025
+ * @package lc-rcm2025
  */
 
 // Exit if accessed directly.
@@ -20,9 +20,15 @@ session_start();
     <meta
         charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, minimum-scale=1">
-    <!-- link rel="preload"
-        href="<?= get_stylesheet_directory_uri() ?>/fonts/bembo-regular.woff2"
-        as="font" type="font/woff2" crossorigin="anonymous" -->
+    <link rel="preload"
+        href="<?= get_stylesheet_directory_uri() ?>/fonts/mulish-v13-latin-800.woff2"
+        as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload"
+        href="<?= get_stylesheet_directory_uri() ?>/fonts/mulish-v13-latin-600.woff2"
+        as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload"
+        href="<?= get_stylesheet_directory_uri() ?>/fonts/mulish-v13-latin-regular.woff2"
+        as="font" type="font/woff2" crossorigin="anonymous">
 
     <?php
     if (!is_user_logged_in()) {
@@ -84,10 +90,10 @@ session_start();
         {
             "@context": "http://schema.org",
             "@type": "Organization",
-            "name": "---",
-            "url": "---",
+            "name": "RCM Carpentry",
+            "url": "http://www.rcm-carpentry.co.uk",
             "logo": "---",
-            "description": "---",
+            "description": "Carpenter/Joiner in Horsham, West Sussex, specialising in bespoke woodwork, fitted wardrobes, kitchens, doors, and exterior projects.",
             "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "---",
@@ -121,10 +127,10 @@ session_start();
     ?>
     <header id="wrapper-navbar" class="fixed-top p-0">
         <nav class="navbar navbar-expand-lg p-0">
-            <div class="container-xl py-4 nav-top align-items-center">
+            <div class="container-xl py-2 nav-top align-items-center">
                 <div class="text-lg-center logo-container"><a href="/" class="logo" aria-label=""></a></div>
                 <div class="button-container d-lg-none">
-                    <button class="navbar-toggler mt-2" type="button" data-bs-toggle="collapse"
+                    <button class="navbar-toggler mt-2 has-blue-400-color" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false"
                         aria-label="Toggle navigation">
                         <i class="fas fa-bars"></i>

@@ -1,0 +1,17 @@
+.swiper {
+  width: 100%;
+  height: auto; /* Ensures it adapts to content */
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}

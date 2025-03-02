@@ -1,75 +1,47 @@
 header {
-    background-color: white;
+  background-color: black;
+  transition: var(--transition);
+
+  a.nav-link {
+    color: var(--col-blue-400);
+    font-size: var(--fs-400);
     transition: var(--transition);
-
-    .navbar {
-        border-bottom: 1px solid hsla(0 0% 80% / 1);
+    @media (min-width: 992px) {
+      &:hover {
+        color: var(--col-light);
+      }
     }
+  }
 
-    a.nav-link {
-        color: var(--col-dark);
-        font-size: var(--fs-400);
-        transition: var(--transition);
-        @media (min-width:992px) {
-            &:hover {
-                color: var(--col-grey-400);
-            }
-        }
-    }
+  .logo-container {
+    max-width: 240px;
+    margin-right: 1rem;
+  }
+  .logo {
+    background-image: url(../img/rcm-carpentry.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    aspect-ratio: 421 / 136;
+    width: 200px;
+    max-width: 100%;
+  }
 
-    .logo-container {
-        max-width: 240px;
-        margin-right: 1rem;
-    }
-    .logo {
-        background-image: url(../img/arcus-logo.svg);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-        display: inline-block;
-        aspect-ratio: 141 / 34;
-        width: 141px;
-        max-width: 100%;
-    }
+  &.hide {
+    transform: translateY(-140px);
+  }
 
-    &.hide {
-        transform: translateY(-140px);
+  .current_page_parent {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      display: block;
+      background-color: var(--col-blue-700);
+      margin-top: 21px; // 1.5rem - border width
     }
-
-    .dropdown-menu {
-        border-color: transparent;
-        border-radius: 0;
-        background-color: var(--col-blue-400);
-        a {
-            color: var(--col-dark);
-        }
-        .dropdown-item {
-            padding: 0 1rem;
-            line-height: 24px;
-            padding-block: 5px;
-            transition: background-color var(--transition), color var(--transition);
-            &:hover {
-                color: white;
-                background-color: var(--col-grey-400);
-                opacity: 1;
-            }
-        }
-    }
-
-    .current_page_parent,
-    .dropdown.current-page-ancestor,
-    .dropdown.current-menu-item {
-        position: relative;
-        &::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 4px;
-            display: block;
-            background-color: var(--col-blue-700);
-            margin-top: 21px; // 1.5rem - border width
-        }
-    }
-    
-
+  }
 }

@@ -9,9 +9,9 @@
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
-define('CB_THEME_DIR', WP_CONTENT_DIR . '/themes/cb-arcus2025');
+define('LC_THEME_DIR', WP_CONTENT_DIR . '/themes/lc-rcm2025');
 
-require_once CB_THEME_DIR . '/inc/cb-theme.php';
+require_once LC_THEME_DIR . '/inc/lc-theme.php';
 
 /**
  * Removes the parent themes stylesheet and scripts from inc/enqueue.php
@@ -64,7 +64,7 @@ add_action('wp_enqueue_scripts', 'theme_enqueue_styles');
  */
 function add_child_theme_textdomain()
 {
-	load_child_theme_textdomain('cb-arcus2025', get_stylesheet_directory() . '/languages');
+	load_child_theme_textdomain('lc-rcm2025', get_stylesheet_directory() . '/languages');
 }
 add_action('after_setup_theme', 'add_child_theme_textdomain');
 

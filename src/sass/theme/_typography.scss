@@ -1,33 +1,28 @@
-/* barlow-regular - latin */
+/* mulish-regular - latin */
 @font-face {
-  font-display: swap;
-  font-family: "Barlow";
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Mulish";
   font-style: normal;
   font-weight: 400;
-  src: url("../fonts/barlow-v12-latin-regular.woff2") format("woff2");
+  src: url("../fonts/mulish-v13-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
-/* barlow-700 - latin */
+
+/* mulish-600 - latin */
 @font-face {
-  font-display: swap;
-  font-family: "Barlow";
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Mulish";
   font-style: normal;
-  font-weight: 700;
-  src: url("../fonts/barlow-v12-latin-700.woff2") format("woff2");
+  font-weight: 600;
+  src: url("../fonts/mulish-v13-latin-600.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
-/* barlow-700 - latin */
+
+/* mulish-800 - latin */
 @font-face {
-  font-display: swap;
-  font-family: "MetaSerif";
-  font-style: normal;
-  font-weight: 500;
-  src: url("../fonts/MetaSerifWeb W06 MediumItalic.woff2") format("woff2");
-}
-@font-face {
-  font-display: swap;
-  font-family: "MetaSerif";
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Mulish";
   font-style: normal;
   font-weight: 800;
-  src: url("../fonts/MetaSerifWeb W07 Extrabold.woff2") format("woff2");
+  src: url("../fonts/mulish-v13-latin-800.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 :root {
@@ -65,23 +60,33 @@ h3,
 
 h1,
 .h1 {
-  font-size: var(--font-h1);
+  font-size: var(--fs-900);
 }
 h2,
 .h2 {
-  font-size: var(--font-h2);
+  font-size: var(--fs-800);
 }
 h3,
 .h3 {
-  font-size: var(--font-h3);
+  font-size: var(--fs-700);
 }
 h4,
 .h4 {
-  font-size: var(--font-h4);
+  font-size: var(--fs-600);
 }
 h5,
 .h5 {
-  font-size: var(--font-h5);
+  font-size: var(--fs-500);
+}
+
+.fs-600 {
+  font-size: var(--fs-600);
+}
+.fs-500 {
+  font-size: var(--fs-500);
+}
+.fs-400 {
+  font-size: var(--fs-400);
 }
 
 .fw-400 {
@@ -89,8 +94,8 @@ h5,
 }
 strong,
 .fw-bold,
-.fw-500 {
-  font-weight: var(--fw-500);
+.fw-600 {
+  font-weight: var(--fw-600);
 }
 
 .text-balance {

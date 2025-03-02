@@ -39,61 +39,75 @@ add_shortcode('contact_email_icon', function () {
     }
     return;
 });
-add_shortcode('social_fb_icon', function () {
-    $social = get_field('social', 'option');
-    $fburl = $social['facebook_url'];
-    if ($fburl != '') {
-        return '<a href="' . $fburl . '" target="_blank"><i class="fab fa-facebook"></i></a>';
+
+
+// Generate individual social icon shortcodes
+function lc_social_icon_shortcode($atts)
+{
+    $atts = shortcode_atts(['type' => ''], $atts);
+    if (!$atts['type']) {
+        return '';
     }
-    return;
-});
-add_shortcode('social_ig_icon', function () {
+
     $social = get_field('social', 'option');
-    $igurl = $social['instagram_url'];
-    if ($igurl != '') {
-        return '<a href="' . $igurl . '" target="_blank"><i class="fab fa-instagram"></i></a>';
+    $urls = [
+        'facebook'  => $social['facebook_url'] ?? '',
+        'instagram' => $social['instagram_url'] ?? '',
+        'twitter'   => $social['twitter_url'] ?? '',
+        'pinterest' => $social['pinterest_url'] ?? '',
+        'youtube'   => $social['youtube_url'] ?? '',
+        'linkedin'  => $social['linkedin_url'] ?? '',
+    ];
+
+    if (!isset($urls[$atts['type']]) || empty($urls[$atts['type']])) {
+        return '';
     }
-    return;
-});
-add_shortcode('social_tw_icon', function () {
+
+    $url = esc_url($urls[$atts['type']]);
+    $icon = esc_attr($atts['type']);
+
+    return '<a href="' . $url . '" target="_blank" rel="nofollow noopener noreferrer"><i class="fa-brands fa-' . $icon . '"></i></a>';
+}
+
+// Register individual social icon shortcodes
+$social_types = ['facebook', 'instagram', 'twitter', 'pinterest', 'youtube', 'linkedin'];
+foreach ($social_types as $type) {
+    add_shortcode('social_' . $type . '_icon', function () use ($type) {
+        return lc_social_icon_shortcode(['type' => $type]);
+    });
+}
+
+// Generate a single shortcode to output all social icons
+add_shortcode('social_icons', function ($atts) {
+    $atts = shortcode_atts([
+        'class' => '',
+    ], $atts, 'social_icons');
+
     $social = get_field('social', 'option');
-    $twurl = $social['twitter_url'];
-    if ($twurl != '') {
-        return '<a href="' . $twurl . '" target="_blank"><i class="fab fa-twitter"></i></a>';
+    if (!$social) {
+        return '';
     }
-    return;
-});
-add_shortcode('social_pt_icon', function () {
-    $social = get_field('social', 'option');
-    $pturl = $social['pinterest_url'];
-    if ($pturl != '') {
-        return '<a href="' . $pturl . '" target="_blank"><i class="fab fa-pinterest"></i></a>';
+
+    $icons = [];
+    $social_map = [
+        'facebook'  => 'facebook-f',
+        'instagram' => 'instagram',
+        'twitter'   => 'x-twitter',
+        'pinterest' => 'pinterest',
+        'youtube'   => 'youtube',
+        'linkedin'  => 'linkedin',
+    ];
+
+    foreach ($social_map as $key => $icon) {
+        if (!empty($social[$key . '_url'])) {
+            $url = esc_url($social[$key . '_url']);
+            $icons[] = '<a href="' . $url . '" target="_blank" rel="nofollow noopener noreferrer"><i class="fa-brands fa-' . $icon . '"></i></a>';
+        }
     }
-    return;
-});
-add_shortcode('social_yt_icon', function () {
-    $social = get_field('social', 'option');
-    $yturl = $social['youtube_url'];
-    if ($yturl != '') {
-        return '<a href="' . $yturl . '" target="_blank"><i class="fab fa-youtube"></i></a>';
-    }
-    return;
-});
-add_shortcode('social_in_icon', function () {
-    $social = get_field('social', 'option');
-    $inurl = $social['linkedin_url'];
-    if ($inurl != '') {
-        return '<a href="' . $inurl . '" target="_blank"><i class="fab fa-linkedin"></i></a>';
-    }
-    return;
-});
-add_shortcode('social_gp_icon', function () {
-    $social = get_field('social', 'option');
-    $gpurl = $social['google_url'];
-    if ($gpurl != '') {
-        return '<a href="' . $gpurl . '" target="_blank"><i class="fas fa-globe-americas"></i></a>';
-    }
-    return;
+
+    $class = esc_attr(trim($atts['class']));
+
+    return !empty($icons) ? '<div class="social-icons ' . $class . '">' . implode(' ', $icons) . '</div>' : '';
 });
 
 
@@ -116,7 +130,7 @@ function get_vimeo_data_from_id($video_id, $data)
     return $video_array[$data];
 }
 
-function cb_gutenberg_admin_styles()
+function lc_gutenberg_admin_styles()
 {
     echo '
         <style>
@@ -151,30 +165,18 @@ function cb_gutenberg_admin_styles()
         </style>
     ';
 }
-add_action('admin_head', 'cb_gutenberg_admin_styles');
+add_action('admin_head', 'lc_gutenberg_admin_styles');
 
 
 // disable full-screen editor view by default
 if (is_admin()) {
-    function cb_disable_editor_fullscreen_by_default()
+    function lc_disable_editor_fullscreen_by_default()
     {
         $script = "jQuery( window ).load(function() { const isFullscreenMode = wp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' ); if ( isFullscreenMode ) { wp.data.dispatch( 'core/edit-post' ).toggleFeature( 'fullscreenMode' ); } });";
         wp_add_inline_script('wp-blocks', $script);
     }
-    add_action('enqueue_block_editor_assets', 'cb_disable_editor_fullscreen_by_default');
+    add_action('enqueue_block_editor_assets', 'lc_disable_editor_fullscreen_by_default');
 }
-
-
-
-// God I hate Gravity Forms
-// Change textarea rows to 4 instead of 10
-add_filter('gform_field_content', function ($field_content, $field) {
-    if ($field->type == 'textarea') {
-        return str_replace("rows='10'", "rows='4'", $field_content);
-    }
-    return $field_content;
-}, 10, 2);
-
 
 function get_the_top_ancestor_id()
 {
@@ -187,7 +189,7 @@ function get_the_top_ancestor_id()
     }
 }
 
-function cb_json_encode($string)
+function lc_json_encode($string)
 {
     // $value = json_encode($string);
     $escapers = array("\\", "/", "\"", "\n", "\r", "\t", "\x08", "\x0c");
@@ -197,7 +199,7 @@ function cb_json_encode($string)
     return $result;
 }
 
-function cb_time_to_8601($string)
+function lc_time_to_8601($string)
 {
     $time = explode(':', $string);
     $output = 'PT' . $time[0] . 'H' . $time[1] . 'M' . $time[2] . 'S';
@@ -205,7 +207,7 @@ function cb_time_to_8601($string)
 }
 
 
-function cbdump($var)
+function lcdump($var)
 {
     // ob_start();
     echo '<pre>';
@@ -214,7 +216,7 @@ function cbdump($var)
     return; // ob_get_clean();
 }
 
-function cbslugify($text, string $divider = '-')
+function lcslugify($text, string $divider = '-')
 {
     // replace non letter or digits by divider
     $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
@@ -256,7 +258,7 @@ function random_str(
     return implode('', $pieces);
 }
 
-function cb_social_share($id)
+function lc_social_share($id)
 {
     ob_start();
     $url = get_the_permalink($id);
@@ -282,7 +284,7 @@ function enable_strict_transport_security_hsts_header()
 add_action('send_headers', 'enable_strict_transport_security_hsts_header');
 
 
-function cb_list($field)
+function lc_list($field)
 {
     ob_start();
     $field = strip_tags($field, '<br />');
@@ -317,14 +319,14 @@ function formatBytes($size, $precision = 2)
 
 
 /**
- * cb_featured_image
+ * lc_featured_image
  *
  * Returns img tag with srcset.
  *
  * @param	string $id The post ID.
  * @return	string
  */
-function cb_featured_image($id)
+function lc_featured_image($id)
 {
     $tag = get_the_post_thumbnail(
         $id,
@@ -400,6 +402,31 @@ function remove_comments()
     $wp_admin_bar->remove_menu('comments');
 }
 add_action('wp_before_admin_bar_render', 'remove_comments');
+
+
+
+// HIDE POSTS
+function remove_posts_admin_menu()
+{
+    remove_menu_page('edit.php'); // Removes the "Posts" menu
+}
+add_action('admin_menu', 'remove_posts_admin_menu');
+
+
+// HIDE STUFF FROM DASHBOARD
+function lc_remove_dashboard_widgets()
+{
+    // Core WordPress widgets
+    remove_meta_box('dashboard_right_now', 'dashboard', 'normal'); // "At a Glance"
+    remove_meta_box('dashboard_activity', 'dashboard', 'normal'); // "Activity"
+    remove_meta_box('dashboard_quick_press', 'dashboard', 'side'); // "Quick Draft"
+    remove_meta_box('dashboard_primary', 'dashboard', 'side'); // "WordPress Events and News"
+
+    // Yoast SEO Widgets
+    remove_meta_box('wpseo-dashboard-overview', 'dashboard', 'normal'); // "Yoast SEO Posts Overview"
+    remove_meta_box('wpseo-wincher-dashboard-overview', 'dashboard', 'normal'); // "Yoast SEO / Wincher: Top Keyphrases"
+}
+add_action('wp_dashboard_setup', 'lc_remove_dashboard_widgets');
 
 
 function estimate_reading_time_in_minutes($content = '', $words_per_minute = 300, $with_gutenberg = false, $formatted = false)

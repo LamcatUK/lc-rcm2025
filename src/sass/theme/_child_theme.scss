@@ -5,42 +5,42 @@
 @import "footer";
 @import "blocks/blocks";
 
+.main {
+  padding-top: var(--h-top);
+}
 
-
-@media (min-width:992px) {
-    .cols-lg-2 {
-        columns: 2;
-    }
-    .cols-lg-3 {
-        columns: 3;
-    }
+@media (min-width: 992px) {
+  .cols-lg-2 {
+    columns: 2;
+  }
+  .cols-lg-3 {
+    columns: 3;
+  }
 }
 
 .sticky {
-    position: sticky;
-    top: 0; // var(--h-top);
-    @media (min-width: 992px) {
-        top: 0; //var(--h-top-desktop);
-    }
-    background-color: #fff;
-    z-index: 1000;
+  position: sticky;
+  top: 0; // var(--h-top);
+  @media (min-width: 992px) {
+    top: 0; //var(--h-top-desktop);
+  }
+  background-color: #fff;
+  z-index: 1000;
 }
 
-
 #breadcrumbs {
-    font-size: var(--fs-200);
+  font-size: var(--fs-200);
 }
 
 .container-xl > .container-xl {
-    padding-inline: 0;
+  padding-inline: 0;
 }
 
 .yoast-breadcrumbs {
-    @extend .container-xl;
-    @extend .mb-4;
-    font-size: var(--fs-300);
+  @extend .container-xl;
+  @extend .mb-4;
+  font-size: var(--fs-300);
 }
-
 
 // show stuff that overflows horizontally
 // * {

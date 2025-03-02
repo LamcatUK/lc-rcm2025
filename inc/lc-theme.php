@@ -2,9 +2,8 @@
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
-require_once CB_THEME_DIR . '/inc/compliance-modal.php';
-require_once CB_THEME_DIR . '/inc/cb-utility.php';
-require_once CB_THEME_DIR . '/inc/cb-blocks.php';
+require_once LC_THEME_DIR . '/inc/lc-utility.php';
+require_once LC_THEME_DIR . '/inc/lc-blocks.php';
 
 // Remove unwanted SVG filter injection WP
 remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
@@ -52,8 +51,8 @@ function widgets_init()
 {
 
     register_nav_menus(array(
-        'primary_nav' => __('Primary Nav', 'cb-arcus2025'),
-        'footer_menu1' => __('Footer Nav', 'cb-arcus2025'),
+        'primary_nav' => __('Primary Nav', 'lc-rcm2025'),
+        'footer_menu1' => __('Footer Nav', 'lc-rcm2025'),
     ));
 
     unregister_sidebar('hero');
@@ -92,7 +91,7 @@ function register_cb_dashboard_widget()
 {
     wp_add_dashboard_widget(
         'cb_dashboard_widget',
-        'Chillibyte',
+        'Lamcat',
         'cb_dashboard_widget_display'
     );
 }
@@ -104,10 +103,10 @@ function cb_dashboard_widget_display()
         <img style="width: 50%;"
             src="<?= get_stylesheet_directory_uri() . '/img/cb-full.jpg'; ?>">
         <a class="button button-primary" target="_blank" rel="noopener nofollow noreferrer"
-            href="mailto:hello@www.chillibyte.co.uk/">Contact</a>
+            href="mailto:hello@www.Lamcat.co.uk/">Contact</a>
     </div>
     <div>
-        <p><strong>Thanks for choosing Chillibyte!</strong></p>
+        <p><strong>Thanks for choosing Lamcat!</strong></p>
         <hr>
         <p>Got a problem with your site, or want to make some changes & need us to take a look for you?</p>
         <p>Use the link above to get in touch and we'll get back to you ASAP.</p>
@@ -165,32 +164,15 @@ function wpdocs_remove_shortcode_from_index($content)
     return $content;
 }
 
-// GF really is pants.
-/**
- * Change submit from input to button
- *
- * Do not use example provided by Gravity Forms as it strips out the button attributes including onClick
- */
-function wd_gf_update_submit_button($button_input, $form)
-{
-    //save attribute string to $button_match[1]
-    preg_match("/<input([^\/>]*)(\s\/)*>/", $button_input, $button_match);
-
-    //remove value attribute (since we aren't using an input)
-    $button_atts = str_replace("value='" . $form['button']['text'] . "' ", "", $button_match[1]);
-
-    // create the button element with the button text inside the button element instead of set as the value
-    return '<button ' . $button_atts . '><span>' . $form['button']['text'] . '</span></button>';
-}
-add_filter('gform_submit_button', 'wd_gf_update_submit_button', 10, 2);
-
-
 function cb_theme_enqueue()
 {
     $the_theme = wp_get_theme();
-    // wp_enqueue_style('lightbox-stylesheet', get_stylesheet_directory_uri() . '/css/lightbox.min.css', array(), $the_theme->get('Version'));
-    // wp_enqueue_script('lightbox-scripts', get_stylesheet_directory_uri() . '/js/lightbox-plus-jquery.min.js', array(), $the_theme->get('Version'), true);
-    // wp_enqueue_script('lightbox-scripts', get_stylesheet_directory_uri() . '/js/lightbox.min.js', array(), $the_theme->get('Version'), true);
+    wp_enqueue_style('lightbox-stylesheet', "https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css", array(), $the_theme->get('Version'));
+    wp_enqueue_script('lightbox-scripts', "https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js", array(), $the_theme->get('Version'), true);
+    wp_enqueue_script('masonry-scripts', "https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js", array(), $the_theme->get('Version'), true);
+    wp_enqueue_script('imagesloaded-scripts', "https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js", array(), $the_theme->get('Version'), true);
+    wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', array(), null);
+    wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), null, true);
     // wp_enqueue_style('aos-style', "https://unpkg.com/aos@2.3.1/dist/aos.css", array());
     // wp_enqueue_script('aos', 'https://unpkg.com/aos@2.3.1/dist/aos.js', array(), null, true);
     wp_deregister_script('jquery');
@@ -211,148 +193,3 @@ function add_custom_menu_item($items, $args)
     return $items;
 }
 add_filter('wp_nav_menu_items', 'add_custom_menu_item', 10, 2);
-
-
-// check block region
-
-function is_block_region_applicable()
-{
-
-    // Start the session if not already started
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-
-    // Get the region stored in the session variable
-    $session_region = isset($_SESSION['region']) ? $_SESSION['region'] : null;
-
-    // Bail early if no session region is set
-    if (!$session_region) {
-        return false;
-    }
-
-    // Get the selected regions from the ACF field
-    $block_regions = get_field('region');
-
-    // Bail early if no regions are selected for the block
-    if (empty($block_regions)) {
-        return false;
-    }
-
-    // Handle Term Objects or IDs
-    $block_slugs = [];
-    if (is_object($block_regions[0]) || is_array($block_regions[0])) {
-        // Term Objects: Extract the slug
-        foreach ($block_regions as $term) {
-            $block_slugs[] = is_object($term) ? $term->slug : $term['slug'];
-        }
-    } elseif (is_numeric($block_regions[0])) {
-        // Term IDs: Fetch term objects to get slugs
-        foreach ($block_regions as $term_id) {
-            $term = get_term($term_id);
-            if ($term) {
-                $block_slugs[] = $term->slug;
-            }
-        }
-    }
-
-    // echo '<br><hr>BLOCK REGIONS: ' . print_r($block_regions, 1) . '<br>';
-    // echo 'BLOCK SLUGS: ' . print_r($block_slugs, 1) . '<br>';
-    // echo 'SESSION REGION: ' . $session_region;
-
-    // Check if the session region matches any of the block regions
-    return in_array($session_region, $block_slugs, true);
-}
-
-function check_page_permissions()
-{
-    // Ensure the session is started
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-
-    // retrieve region from the session
-    $userRegion = $_SESSION['region'] ?? null;
-
-
-    // Bail early if userRegion is not set
-    if (!$userRegion) {
-        return false;
-    }
-
-    // get list of allowed region IDs
-    $areas = get_field('region', get_the_ID());
-
-    // Bail early if no regions are assigned to the page/post
-    if (empty($areas)) {
-        return false;
-    }
-
-    // Normalise the region data to ensure we always work with slugs
-    $allowedRegions = [];
-    foreach ($areas as $area) {
-        if (is_object($area) && isset($area->slug)) {
-            // Term object with a slug property
-            $allowedRegions[] = $area->slug;
-        } elseif (is_array($area) && isset($area['slug'])) {
-            // Associative array with a slug key
-            $allowedRegions[] = $area['slug'];
-        } elseif (is_numeric($area)) {
-            // Numeric term ID; retrieve the term to get its slug
-            $term = get_term($area);
-            if ($term && !is_wp_error($term)) {
-                $allowedRegions[] = $term->slug;
-            }
-        }
-    }
-
-    // Bail early if no valid regions were found
-    if (empty($allowedRegions)) {
-        return false;
-    }
-
-    // If 'All Regions' is one of the assigned regions, grant access
-    if (in_array('all-regions', $allowedRegions, true)) {
-        return true;
-    }
-
-    // Check if the user's region matches any of the allowed regions
-    return in_array($userRegion, $allowedRegions, true);
-
-    foreach ($areas as $area) {
-        if ($area->slug === $userRegion) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-// Handle the AJAX request to clear the session
-function clear_session_ajax_handler()
-{
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-
-    // Clear the session variable
-    unset($_SESSION['region']);
-
-    // Respond with success
-    wp_send_json_success('Session cleared.');
-}
-add_action('wp_ajax_clear_session', 'clear_session_ajax_handler');
-add_action('wp_ajax_nopriv_clear_session', 'clear_session_ajax_handler');
-
-
-// set default region if none is selected
-add_filter('acf/load_value/name=region', function ($value, $post_id, $field) {
-    // If no value is set, return the default term
-    if (empty($value)) {
-        $default_term = get_term_by('slug', 'all-regions', 'region'); // Change 'region' to your taxonomy name
-
-        return $default_term ? [$default_term->term_id] : []; // Ensure it returns an array if using multi-select
-    }
-
-    return $value;
-}, 10, 3);

@@ -1,53 +1,27 @@
 {
-    "key": "group_6748d99d24711",
-    "title": "CB Title \/ Text",
+    "key": "group_lc_slider",
+    "title": "LC Slider",
     "fields": [
         {
-            "key": "field_6748d99d3c7ac",
-            "label": "CB Title \/ Text",
+            "key": "field_lc_slider_name",
+            "label": "LC Slider",
             "name": "",
             "aria-label": "",
             "type": "message",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": false,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
             "message": "",
-            "new_lines": "wpautop",
-            "esc_html": 0
+            "esc_html": 0,
+            "new_lines": "wpautop"
         },
         {
-            "key": "field_6748d9b13c7ad",
-            "label": "Region",
-            "name": "region",
-            "aria-label": "",
-            "type": "taxonomy",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "taxonomy": "region",
-            "add_term": 0,
-            "save_terms": 0,
-            "load_terms": 0,
-            "return_format": "id",
-            "field_type": "checkbox",
-            "allow_in_bindings": 0,
-            "bidirectional": 0,
-            "multiple": 0,
-            "allow_null": 0,
-            "bidirectional_target": []
-        },
-        {
-            "key": "field_6748d9c33c7ae",
+            "key": "field_67c4770a4a6b8",
             "label": "Title",
             "name": "title",
             "aria-label": "",
@@ -68,11 +42,11 @@
             "append": ""
         },
         {
-            "key": "field_6748d9c83c7af",
-            "label": "Content",
-            "name": "content",
+            "key": "field_67c4758e8da34",
+            "label": "Gallery",
+            "name": "gallery",
             "aria-label": "",
-            "type": "textarea",
+            "type": "gallery",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -81,12 +55,36 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "rows": "",
-            "placeholder": "",
-            "new_lines": ""
+            "return_format": "id",
+            "library": "all",
+            "min": "",
+            "max": "",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "insert": "append",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_67c477134a6b9",
+            "label": "CTA",
+            "name": "cta",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "allow_in_bindings": 0
         }
     ],
     "location": [
@@ -94,7 +92,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/cb-title-text"
+                "value": "acf\/lc-slider"
             }
         ]
     ],
@@ -105,7 +103,7 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "",
+    "description": "Field group for LC Slider block.",
     "show_in_rest": 0,
-    "modified": 1732827603
+    "modified": 1740928794
 }
