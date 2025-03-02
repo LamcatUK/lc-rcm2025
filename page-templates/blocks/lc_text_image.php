@@ -31,7 +31,7 @@ $link = get_field('image_link') ?? null;
 $id = !empty($block['anchor']) ? esc_attr($block['anchor']) : $block['id'];
 ?>
 <section id="<?php echo $id; ?>"
-    class="text_image <?= $bg ?> py-4">
+    class="text_image py-4">
     <div class="container-xl py-5">
         <div class="row gy-5">
             <div
