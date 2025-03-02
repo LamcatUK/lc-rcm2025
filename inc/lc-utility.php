@@ -90,7 +90,7 @@ add_shortcode('social_icons', function ($atts) {
 
     $icons = [];
     $social_map = [
-        'facebook'  => 'facebook-f',
+        'facebook'  => 'facebook-square',
         'instagram' => 'instagram',
         'twitter'   => 'x-twitter',
         'pinterest' => 'pinterest',

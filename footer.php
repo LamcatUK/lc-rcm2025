@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
                     <li><span class="fa-li"><i class="fa-solid fa-mobile text-white"></i></span> <?= do_shortcode('[contact_phone]') ?></li>
                     <li><span class="fa-li"><i class="fa-solid fa-envelope text-white"></i></span> <?= do_shortcode('[contact_email]') ?></li>
                 </ul>
-                <?= do_shortcode('[social_icons class="fa-2x d-flex gap-4"]') ?>
+                <?= do_shortcode('[social_icons class="fa-2x d-flex gap-4 ms-md-3"]') ?>
             </div>
         </div>
 
