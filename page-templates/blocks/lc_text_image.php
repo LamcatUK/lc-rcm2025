@@ -8,7 +8,8 @@ switch (get_field('split')) {
         break;
     case 6040:
         $colText = 'col-md-8';
-        $colImage = 'col-md-4';
+        $col
+        mage = 'col-md-4';
         break;
     case 7030:
         $colText = 'col-md-9';
